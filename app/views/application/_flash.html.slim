@@ -1,0 +1,15 @@
+- flash.each do |type, message|
+  ruby:
+    notification_class = case type
+    when :notice then 'notification is-info'
+    when :alert then 'notification is-danger'
+    else type
+    end
+  div class=[notification_class || 'notification']
+    button class="delete"
+    = message
+//javascript:
+//  document.querySelectorAll("button.delete").addEventListener("click", function(e) {
+//    e.preventDefault();
+//    e.target.parentElement().remove();
+//  });
