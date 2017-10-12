@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
   get 'signup', to: 'users#new', as: 'signup'
-  get 'login', to: 'sessions#new', as: 'login'
+  # get 'login', to: 'sessions#new', as: 'login'
+  match "login", to: "sessions#create", as: 'login', via: [:get, :post]
   get 'logout', to: 'sessions#destroy', as: 'logout'
 
   resources :users
-  # resources :sessions
+  resources :sessions
 
   get 'play', to: 'worlds#show', as: 'play'
   get '/' => redirect('play')

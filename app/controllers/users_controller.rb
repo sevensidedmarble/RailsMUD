@@ -10,7 +10,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       cookies.encrypted[:user_id] = @user.id
       @user.current_player_id = 1
-      redirect_to root_url, notice: 'Thank you for signing up!'
+      redirect_to login_path, notice: 'Thank you for signing up!'
     else
       render 'new'
     end

@@ -9,3 +9,15 @@ h1 class="title is-1 has-text-light has-text-centered" Log In
     br
     = password_field_tag :password, nil, class: 'input'
   = submit_tag "Log In", class: "button"
+
+/ new:
+/= form_with url: login_path do |form|
+/  .field.has-text-light
+/    = form.label :email
+/    br
+/    = form.text_field :email
+/  .field.has-text-light
+/    = form.label :password
+/    br
+/    = form.text_field :password
+/  = form.submit 'Log In', class: 'button'

@@ -4,6 +4,7 @@ class SessionsController < ApplicationController
   
   def create
     user = User.find_by_email(params[:email])
+    # puts user.email
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
       cookies.encrypted[:user_id] = user.id
