@@ -1,21 +1,21 @@
-h1 Sign Up
+h1 class="title is-1 has-text-light has-text-centered"Sign Up
 = form_for @user do |f|
   - if @user.errors.any?
     .error_messages
-      h2 Form is invalid
+      h2 class="subtitle is-3 has-text-light" Form is invalid
       ul
         - @user.errors.full_messages.each do |message|
-          li= message
-  .field
+          li class="has-text-light" = message
+  .field.has-text-light
     = f.label :email
-    br/
-    = f.text_field :email
-  .field
+    br
+    = f.text_field :email, nil, class: 'input'
+  .field.has-text-light
     = f.label :password
-    br/
-    = f.password_field :password
-  .field
+    br
+    = f.password_field :password, nil, class: 'input'
+  .field.has-text-light
     = f.label :password_confirmation
-    br/
-    = f.password_field :password_confirmation
-  .actions= f.submit "Sign Up"
+    br
+    = f.password_field :password_confirmation, nil, class: 'input'
+  = f.submit "Sign Up", class: "button"

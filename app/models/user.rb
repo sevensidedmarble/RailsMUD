@@ -13,10 +13,3 @@ class User < ApplicationRecord
   end
 
 end
-
-#
-#
-#
-# class Command
-#
-# end

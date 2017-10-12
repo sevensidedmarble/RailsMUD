@@ -58,6 +58,8 @@ class Player < ApplicationRecord
   belongs_to :room
   belongs_to :user
 
+  validates_presence_of :name, :room_id, :hp, :xp, :level, :user_id
+
   @@player_cmds = PlayerCommandSet.new
 
   def current_room

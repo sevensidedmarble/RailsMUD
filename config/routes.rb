@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get 'logout', to: 'sessions#destroy', as: 'logout'
 
   resources :users
-  resources :sessions
+  # resources :sessions
 
   get 'play', to: 'worlds#show', as: 'play'
   get '/' => redirect('play')

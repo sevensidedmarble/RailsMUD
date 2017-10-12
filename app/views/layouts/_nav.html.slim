@@ -3,7 +3,8 @@ nav class="navbar is-black"
     div class="navbar-start"
       a class="navbar-item" Home
     div class="navbar-end"
-      - if current_user
-        = link_to "Log Out", logout_path, class: "navbar-item"
-      - else
-        | #{link_to "Sign Up", signup_path, class: "navbar-item"} or #{link_to "Log In", login_path, class: "navbar-item"}
+      .navbar-item
+        - if current_user
+          = link_to "Log Out", logout_path, class: "navbar-item"
+        - else
+          | #{link_to "Sign Up", signup_path, class: "navbar-item"} or #{link_to "Log In", login_path, class: "navbar-item"}
