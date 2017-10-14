@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   match "login", to: "sessions#create", as: 'login', via: [:get, :post]
   get 'logout', to: 'sessions#destroy', as: 'logout'
 
-  get ":page", to: "pages#show"
+  get ":home", to: "pages#home"
 
   resources :users
   resources :sessions
