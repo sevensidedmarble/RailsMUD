@@ -1,13 +1,13 @@
 section class="section is-white"
   .column.is-8.is-offset-2
     .container.is-fluid
-      h3 class="title" Thank you for checking out the Dark Elf MUD engine
+      h1 class="title is-2 has-text-centered" Thank you for checking out the Dark Elf MUD engine
       hr
       .container.is-fluid
         .content
           p This is a simple MUD (Multi User Dungeon) game engine written in Ruby on Rails. MUDs were a genre of games very popular in the 80s and 90s, in the early days of the internet, but they have fallen off in popularity today.
           p Other MUD engines in Ruby on Rails have existed, but this is the first substantial one I've seen to use the new ActionCable feature in Rails 5. The benefit of using a large framework like Rails for a MUD is that you have access to a single framework that can handle your telnet server, your web client, and the static or near static pages for your MUD like a home page or updates page.
-          p This project takes a lot of inspiration from Evennia, which is a similar engine done in Django.
+          p This project takes a lot of inspiration from #{link_to 'Evennia', 'https://github.com/evennia/evennia'}, which is a similar engine done in Django.
           p You can click the #{link_to 'Play Now', play_path} link here or above to check out the web client (done in Jquery Terminal) or open up a command prompt on your computer and enter the following command:
           pre telnet andrewianstewart.com/darkelf/telnet
-          p This will connect to a small little TCP server that runs in an EventMachine loop, that acts as a proxy between ActionCable on the Rails server and your computer via TCP. This is just a simple TCP server right now and doesn't use the advanced features of Telnet or special MUD protocols that allow MUDs to send special data along with the standard text messages to a client. It would be pretty easy to slot a more complicated server in its place however.
+          p This will connect to a small little TCP server that runs in an EventMachine loop, that acts as a proxy between ActionCable on the Rails server and your computer via TCP. This is just a simple TCP server right now and doesn't use the advanced features of Telnet or special MUD protocols that allow MUDs to send meta data along with the standard text messages to a client. It would be pretty easy to slot a more complicated server in its place however.
