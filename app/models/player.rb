@@ -17,12 +17,13 @@ class PlayerCommandSet
       @is_command = true
       @name = 'look'
       @aliases = ['l']
-      @callback = lambda { |player, input_string|
-        room = player.current_room
-        title = room.title
-        desc = room.description
-        return [title, desc]
-      }
+    end
+
+    def run (player, input)
+      room = player.current_room
+      title = room.title
+      desc = room.description
+      player.send_message_to_self([title, desc])
     end
   end
 
@@ -38,23 +39,16 @@ class PlayerCommandSet
       @is_command = true
       @name = 'move'
       @aliases = ['m']
-      @callback = lambda { |player, input_string|
-        arguments = input_string.split(' ').drop(1)
-        room = player.current_room
-        # return room.exits[arguments.join]
-        if (exit_id = room.exits[arguments])
-          self.move_to(exit_id)
-        else
-          "There is no exit there!"
-        end
-        # case arguments.first
-        #   when 'east'
-        #     # if there is an exit to the east
-        #     # then go east
-        #     # else return 'no exit there'
-        # end
-        # return []
-      }
+    end
+
+    def run (player, input)
+      arguments = input.split(' ').drop(1)
+      room = player.current_room
+      if (exit_id = room.exits[arguments])
+        player.move_to(exit_id)
+      else
+        player.send_message_to_self("There is no exit there!")
+      end
     end
 
   end
@@ -71,11 +65,19 @@ class Player < ApplicationRecord
 
   def move_to(room_id)
     self.room_id = room_id
-    puts 'moved to ' + Room.find(room_id).title
+    self.send_message_to_self('moved to ' + Room.find(room_id).title)
   end
 
   def current_room
     Room.find(self.room_id)
+  end
+
+  def send_message_to_self(msg)
+    Message.new channel: "world_channel_#{self.user_id}", string: msg
+  end
+
+  def send_message_to_user(user_id, msg)
+    Message.new channel: "world_channel_#{user_id}", string: msg
   end
 
   def parse_command(input_string)
@@ -89,9 +91,9 @@ class Player < ApplicationRecord
     first_word = words.first.to_s #
     command = @@player_cmds.cmds.find { |cmd| cmd.keys.include?(first_word) }
     if command
-      command.callback.call(self, input_string)
+      command.run(self, input_string)
     else
-      "I don't understand what you're trying to do!"
+      self.send_message_to_self("I don't understand what you're trying to do!")
     end
   end
 

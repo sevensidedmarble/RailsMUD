@@ -15,7 +15,9 @@ class WorldChannel < ApplicationCable::Channel
     # Echo the command:
     # ActionCable.server.broadcast "world_channel_#{current_user.id}", { user: current_user, message: ">" + data['message'] }
     # Message creation incapsulates the parsing of strings by users, then broadcasts them.
-    Message.new channel: "world_channel_#{current_user.id}", user: current_user, string: data['message']
+
+    current_user.parse_command(data['message'])
+    # Message.new channel: "world_channel_#{current_user.id}", user: current_user, string: data['message']
 
     # You can pass in the entire user object doing something like this:
     # ActionCable.server.broadcast "world_channel_#{current_user.id}", { user: current_user, message: data['message'] }
