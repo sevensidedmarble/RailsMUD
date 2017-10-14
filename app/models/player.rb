@@ -42,8 +42,9 @@ class PlayerCommandSet
     end
 
     def run (player, input)
-      arguments = input.split(' ').drop(1)
+      arguments = input.split(' ').drop(1).join
       room = player.current_room
+      puts room.exits[arguments]
       if (exit_id = room.exits[arguments])
         player.move_to(exit_id)
       else
@@ -63,9 +64,9 @@ class Player < ApplicationRecord
 
   @@player_cmds = PlayerCommandSet.new
 
-  def move_to(room_id)
-    self.room_id = room_id
-    self.send_message_to_self('moved to ' + Room.find(room_id).title)
+  def move_to(new_id)
+    self.update_attribute(:room_id, new_id)
+    self.send_message_to_self('moved to ' + Room.find(new_id).title)
   end
 
   def current_room
