@@ -4,14 +4,14 @@ Rails.application.routes.draw do
   get 'play', to: 'worlds#show', as: 'play'
 
   get 'signup', to: 'users#new', as: 'signup'
-  # get 'login', to: 'sessions#new', as: 'login'
   match "login", to: "sessions#create", as: 'login', via: [:get, :post]
   get 'logout', to: 'sessions#destroy', as: 'logout'
+
+  get ":page", to: "pages#show"
 
   resources :users
   resources :sessions
 
-  #
   get '/' => redirect('play')
 
   mount ActionCable.server => '/cable'
