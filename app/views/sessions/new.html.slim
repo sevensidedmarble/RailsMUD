@@ -1,23 +1,27 @@
-h1 class="title is-1 has-text-light has-text-centered" Log In
-= form_tag login_path do
-  .field.has-text-light
-    = label_tag :email
-    br
-    = text_field_tag :email, params[:email], class: 'input'
-  .field.has-text-light
-    = label_tag :password
-    br
-    = password_field_tag :password, nil, class: 'input'
-  = submit_tag "Log In", class: "button"
+section class="section is-white"
+  .column.is-8.is-offset-2
+    .container.is-fluid
+      h1 class="title is-1 has-text-centered" Log In
+      = form_tag login_path do
+        .field
+          = label_tag :email, nil, class: 'label'
+          .control
+            = text_field_tag :email, params[:email], class: 'input'
+        .field
+          = label_tag :password, nil, class: 'label'
+          .control
+            = password_field_tag :password, nil, class: 'input'
+        .control
+          = submit_tag "Log In", class: "button is-primary"
 
-/ new:
-/= form_with url: login_path do |form|
-/  .field.has-text-light
-/    = form.label :email
-/    br
-/    = form.text_field :email
-/  .field.has-text-light
-/    = form.label :password
-/    br
-/    = form.text_field :password
-/  = form.submit 'Log In', class: 'button'
+      / new:
+      /= form_with url: login_path do |form|
+      /  .field.has-text-light
+      /    = form.label :email
+      /    br
+      /    = form.text_field :email
+      /  .field.has-text-light
+      /    = form.label :password
+      /    br
+      /    = form.text_field :password
+      /  = form.submit 'Log In', class: 'button'
