@@ -39,7 +39,14 @@ class PlayerCommandSet
       @name = 'move'
       @aliases = ['m']
       @callback = lambda { |player, input_string|
-        # arguments = input_string.split(' ').drop(1)
+        arguments = input_string.split(' ').drop(1)
+        room = player.current_room
+        # return room.exits[arguments.join]
+        if (exit_id = room.exits[arguments])
+          self.move_to(exit_id)
+        else
+          "There is no exit there!"
+        end
         # case arguments.first
         #   when 'east'
         #     # if there is an exit to the east
@@ -62,6 +69,11 @@ class Player < ApplicationRecord
 
   @@player_cmds = PlayerCommandSet.new
 
+  def move_to(room_id)
+    self.room_id = room_id
+    puts 'moved to ' + Room.find(room_id).title
+  end
+
   def current_room
     Room.find(self.room_id)
   end
@@ -79,8 +91,13 @@ class Player < ApplicationRecord
     if command
       command.callback.call(self, input_string)
     else
-      ["I don't understand what you're trying to do!"]
+      "I don't understand what you're trying to do!"
     end
   end
 
 end
+
+
+# todo: make it so that instead of passing strings all the way back to message, input just gets passed to the user,
+# then passed to the player, then parsed, then the message gets created. (including a 'i didn't understand command).
+# this is far superiour because then we can call commands without making a message, like self.Look

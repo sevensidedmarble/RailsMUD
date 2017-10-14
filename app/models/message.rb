@@ -9,8 +9,14 @@ class Message
     super
     # todo make this run in a job
     return_strings = @user.parse_command(@string)
-    return_strings.each do |line|
-      ActionCable.server.broadcast @channel, { message: line }
+    if return_strings.class == String
+      ActionCable.server.broadcast @channel, { message: return_strings }
+    elsif return_strings.class == Fixnum
+      ActionCable.server.broadcast @channel, { message: return_strings.to_s }
+    else
+      return_strings.each do |line|
+        ActionCable.server.broadcast @channel, { message: line }
+      end
     end
   end
 end
