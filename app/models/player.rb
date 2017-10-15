@@ -17,6 +17,10 @@ class Player < ApplicationRecord
     Room.find(self.room_id)
   end
 
+  def receive_message(msg)
+    send_message_to_self(msg)
+  end
+
   def send_message_to_self(msg)
     Message.new channel: "world_channel_#{self.user_id}", string: msg
   end
