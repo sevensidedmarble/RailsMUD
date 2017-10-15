@@ -8,8 +8,8 @@ html
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
 
   body
+    = render partial: "layouts/nav"
     .container
-      = render partial: "layouts/nav"
       = render partial: "application/flash", flash: flash
       = yield
       /= console
