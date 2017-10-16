@@ -1,25 +1,26 @@
-section class="section is-white"
-  .column.is-8.is-offset-2
-    .container.is-fluid
-      h1 class="title is-1 has-text-centered"Sign Up
-      = form_for @user do |f|
-        - if @user.errors.any?
-          .error_messages
-            h2 class="subtitle is-3" Form is invalid
-            ul
-              - @user.errors.full_messages.each do |message|
-                li class="message" = message
-        .field
-          = f.label :email, nil, class: 'label'
+.container
+  section class="section is-white"
+    .column.is-8.is-offset-2
+      .container.is-fluid
+        h1 class="title is-1 has-text-centered"Sign Up
+        = form_for @user do |f|
+          - if @user.errors.any?
+            .error_messages
+              h2 class="subtitle is-3" Form is invalid
+              ul
+                - @user.errors.full_messages.each do |message|
+                  li class="message" = message
+          .field
+            = f.label :email, nil, class: 'label'
+            .control
+              = f.text_field :email, nil, class: 'input'
+          .field
+            = f.label :password, nil, class: 'label'
+            .control
+              = f.password_field :password, nil, class: 'input'
+          .field
+            = f.label :password_confirmation, nil, class: 'label'
+            .control
+              = f.password_field :password_confirmation, nil, class: 'input'
           .control
-            = f.text_field :email, nil, class: 'input'
-        .field
-          = f.label :password, nil, class: 'label'
-          .control
-            = f.password_field :password, nil, class: 'input'
-        .field
-          = f.label :password_confirmation, nil, class: 'label'
-          .control
-            = f.password_field :password_confirmation, nil, class: 'input'
-        .control
-          = f.submit "Sign Up", class: "button is-primary"
+            = f.submit "Sign Up", class: "button is-primary"

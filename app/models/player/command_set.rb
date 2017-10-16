@@ -20,11 +20,19 @@ class Player
         @aliases = ['l']
       end
 
+      # Run Look Command
       def run (player, input)
+
+        # Get title and description of the room
         room = player.current_room
         title = room.title
         desc = room.description
-        player.send_message_to_self([title, desc])
+
+        # Get the actors here
+        actors = Actor.find_by_room_id player.room_id
+        actors_string = actors.map { |a| "A " + a.name + " is here.\n" }
+
+        player.send_message_to_self([title, desc, actors_string])
       end
     end
 
