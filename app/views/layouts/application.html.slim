@@ -9,6 +9,7 @@ html
 
   body
     = render partial: "layouts/nav"
-    = render partial: "application/flash", flash: flash
-    = yield
-    /= console
+    .container
+      = render partial: "application/flash", flash: flash
+      = yield
+      /= console
