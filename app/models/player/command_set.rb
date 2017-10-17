@@ -29,7 +29,8 @@ class Player
         desc = room.description
 
         # Get the actors here
-        actors = Actor.find_by_room_id player.room_id
+        # actors = Actor.where room_id: self.room_id
+        actors = Actor.where room_id: 1
         actors_string = actors.map { |a| "A " + a.name + " is here.\n" }
 
         player.send_message_to_self([title, desc, actors_string])
