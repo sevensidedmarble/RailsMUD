@@ -1,6 +1,8 @@
 require 'action_cable_client'
 require 'socket'
 
+puts 'Telnet server process started.'
+
 def actionCableClientStart
   puts "Beginning ActionCableClient connection attempt."
   uri = "ws://127.0.0.1:3000/cable"
