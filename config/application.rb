@@ -14,12 +14,12 @@ module DarkElfWip02
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
     config.after_initialize do
-      telnetServerPid = spawn("ruby lib/telnet_server.rb")
+      $telnetServerPid = spawn("ruby lib/telnet_server.rb")
     end
 
     at_exit do
       puts 'Killing telnet server'
-      Process.kill('QUIT', telnetServerPid)
+      Process.kill('QUIT', $telnetServerPid)
     end
   end
 end
