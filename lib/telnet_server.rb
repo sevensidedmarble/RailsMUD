@@ -7,15 +7,30 @@ def actionCableClientStart
   puts "Beginning ActionCableClient connection attempt."
   uri = "ws://127.0.0.1:3000/cable"
   client = ActionCableClient.new(uri, 'WorldChannel', true, {'id' => 1})
+
+  modes = [:getting_email, :getting_password, :main]
+  current_mode = :getting_email
+
   # the connected callback is required, as it triggers
   # the actual subscribing to the channel but it can just be
   # client.connected {}
-  client.connected { puts 'successfully connected.' }
+  client.connected {
+    send_data "Enter the email address of the account you'd like to log into"     
+  }
 
   # called whenever a message is received from the server
   client.received do | data |
-    # puts data
-    send_data data['message']['message']
+    case current_mode
+      when :getting_email
+        # send the email of who we want to log into to the server
+      when :getting_password
+        #
+      when :main
+        #
+      else
+        send_data 'Test'
+    end
+    send_data data['message']
   end
 
   client.errored { |msg| puts msg }
@@ -31,14 +46,10 @@ module Server
   end
 
   def receive_data data
-      # send_data "received: #{data}\r\n"
-    @client.perform('send_message', { message: data })
+    @client.perform('send_message', data)
   end
 
 end
-
-
-
 
 EventMachine.run do
   EventMachine.start_server '127.0.0.1', 8888, Server

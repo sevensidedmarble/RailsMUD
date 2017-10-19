@@ -13,7 +13,7 @@ class WorldChannel < ApplicationCable::Channel
     # puts val.class
     # ActionCable.server.broadcast "world_channel_#{current_user.id}", { message: val }
     # Echo the command:
-    # ActionCable.server.broadcast "world_channel_#{current_user.id}", { user: current_user, message: ">" + data['message'] }
+    # ActionCable.server.broadcast "world_channel_#{current_user.id}", { user: current_user, message: ">" +  data['message'] }
     # Message creation incapsulates the parsing of strings by users, then broadcasts them.
 
     current_user.parse_command(data['message'])
