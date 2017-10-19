@@ -8,8 +8,11 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
       cookies.encrypted[:user_id] = user.id
-      user.current_player_id = 1
+
       # TODO undo hardcoding of player log in
+      # when theres time, this system will support multiple players(characters) per user.
+      user.current_player_id = 1
+
       redirect_to root_url, notice: "Logged in!"
     else
       flash.now.alert = "Email or password is invalid"

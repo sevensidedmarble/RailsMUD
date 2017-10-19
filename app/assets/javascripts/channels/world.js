@@ -27,7 +27,7 @@ App.world = App.cable.subscriptions.create("WorldChannel", {
 
 document.addEventListener('turbolinks:load', function() {
     // Set background color on the webclient
-    document.body.style.background = "#0a0a0a";
+    // document.body.style.background = "#0a0a0a";
     // Create the Jquery Terminal
     term = $('#terminal').terminal(function (command) {
         App.world.send_message(command);

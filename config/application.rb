@@ -6,6 +6,8 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+# TODO: add a basic little map to move around in!
+
 module DarkElfWip02
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.

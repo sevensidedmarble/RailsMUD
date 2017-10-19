@@ -3,33 +3,21 @@ require 'socket'
 
 puts 'Telnet server process started.'
 
-def actionCableClientStart
+def actionCableClientStart (email, password)
   puts "Beginning ActionCableClient connection attempt."
   uri = "ws://127.0.0.1:3000/cable"
-  client = ActionCableClient.new(uri, 'WorldChannel', true, {'id' => 1})
-
-  modes = [:getting_email, :getting_password, :main]
-  current_mode = :getting_email
+  # client = ActionCableClient.new(uri, 'WorldChannel', true, {'id' => 1})
+  client = ActionCableClient.new(uri, {'channel' => 'WorldChannel', 'email' => email, 'password' => password}, true)
 
   # the connected callback is required, as it triggers
   # the actual subscribing to the channel but it can just be
   # client.connected {}
   client.connected {
-    send_data "Enter the email address of the account you'd like to log into"     
+    send_data "Connection successful! Welcome to the Dark Elf MUD server!"
   }
 
   # called whenever a message is received from the server
   client.received do | data |
-    case current_mode
-      when :getting_email
-        # send the email of who we want to log into to the server
-      when :getting_password
-        #
-      when :main
-        #
-      else
-        send_data 'Test'
-    end
     send_data data['message']
   end
 
@@ -38,21 +26,42 @@ def actionCableClientStart
   return client
 end
 
-module Server
+module MarblesTelnetServer
 
   def post_init
-    puts "Received a new connection"
-    @client = actionCableClientStart
+    @modes = [:getting_email, :getting_password, :main]
+    @current_mode = :getting_email
+    @email = nil
+    @password = nil
+    puts "Received a new connection attempt."
+    send_data "Welcome!\nEnter the email address of the account you'd like to log into.\n"
+    # @client = actionCableClientStart
   end
 
   def receive_data data
-    @client.perform('send_message', data)
+    case @current_mode
+      when :getting_email
+        @email = data
+        puts @email
+        @current_mode = :getting_password
+        send_data "Enter your password.\n"
+      when :getting_password
+        @password = data
+        puts @password
+        @client = actionCableClientStart @email, @password
+        @current_mode = :main
+      when :main
+        @client.perform('send_message', data)
+      else
+        send_data 'Something went very weird. @current_mode became undefined.'
+    end
+
   end
 
 end
 
 EventMachine.run do
-  EventMachine.start_server '127.0.0.1', 8888, Server
+  EventMachine.start_server '127.0.0.1', 8888, MarblesTelnetServer
 
   # puts "Beginning ActionCableClient connection attempt."
   # uri = "ws://127.0.0.1:3000/cable"
