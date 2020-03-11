@@ -2,4 +2,4 @@
 
 > A MUD (Multi User Dungeon) in Ruby on Rails
 
-Still a WIP.
+Still a WIP. Currently porting a bunch of old code to Rails 6.
