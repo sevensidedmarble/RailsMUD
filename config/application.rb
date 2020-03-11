@@ -15,5 +15,16 @@ module RailsMUD
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+
+    # TODO: Unused init method that needs tweaking
+    # config.after_initialize do
+    #   $telnetServerPid = spawn("ruby lib/telnet_server.rb")
+    # end
+
+    # TODO: Unused after block
+    # at_exit do
+    #   puts 'Killing telnet server'
+    #   Process.kill('QUIT', $telnetServerPid) if $telnetServerPid
+    # end
   end
 end
